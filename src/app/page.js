@@ -42,6 +42,14 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+  H1,
+  H2_SECTIONS,
+  HOMEPAGE_PARAGRAPH,
+  SERVICES_LIST,
+  SERVICE_AREAS_INTRO,
+  SERVICE_AREAS,
+} from "@/content/seo-homepage";
 
 /* ================= ADMIN CONFIG ================= */
 const CONFIG = {
@@ -212,10 +220,13 @@ export default function AllInOneFinal() {
 
         {/* HERO */}
         <section className="text-center px-4 pb-12">
-          <h1 className="text-4xl md:text-6xl font-extrabold bg-gradient-to-r from-orange-400 to-amber-500 bg-clip-text text-transparent">
-            {CONFIG.business}
+          <h1 className="text-3xl md:text-5xl font-extrabold bg-gradient-to-r from-orange-400 to-amber-500 bg-clip-text text-transparent max-w-4xl mx-auto leading-tight">
+            {H1}
           </h1>
           <p className="text-zinc-300 mt-4 text-lg">{text.tagline}</p>
+          <p className="text-zinc-300 mt-4 text-base max-w-2xl mx-auto text-left sm:text-center leading-relaxed">
+            {HOMEPAGE_PARAGRAPH}
+          </p>
 
           <div className="inline-flex gap-2 mt-5 bg-orange-500/10 border border-orange-500/30 px-4 py-2 rounded-full text-orange-300 text-sm">
             <BadgeCheck size={16} /> 20+ Years Experience
@@ -259,6 +270,25 @@ export default function AllInOneFinal() {
                   i === slide ? "opacity-100" : "opacity-0"
                 }`}
               />
+            ))}
+          </div>
+        </section>
+
+        {/* SEO SERVICES – Welding, Iron, Gate, Railing, Steel */}
+        <section className="max-w-6xl mx-auto px-4 mb-16">
+          <h2 className="section-title">{H2_SECTIONS.services}</h2>
+          <div className="space-y-6">
+            {SERVICES_LIST.map((s, i) => (
+              <Card key={i} className="card-pro">
+                <CardContent className="p-6">
+                  <h3 className="text-lg font-semibold text-orange-300 mb-2">
+                    {s.title}
+                  </h3>
+                  <p className="text-zinc-300 text-sm leading-relaxed">
+                    {s.description}
+                  </p>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </section>
@@ -378,10 +408,15 @@ export default function AllInOneFinal() {
           ))}
         </section>
 
-        {/* AREAS */}
+        {/* SERVICE AREAS – Local SEO */}
         <section className="max-w-4xl mx-auto px-4 mb-16 text-center">
-          <h2 className="section-title">{text.areas}</h2>
-          <p className="text-zinc-300">{CONFIG.areas.join(", ")}</p>
+          <h2 className="section-title">{H2_SECTIONS.serviceAreas}</h2>
+          <p className="text-zinc-300 mb-4 leading-relaxed">
+            {SERVICE_AREAS_INTRO}
+          </p>
+          <p className="text-zinc-300 font-medium">
+            {SERVICE_AREAS.join(", ")}
+          </p>
         </section>
 
         {/* FAQ */}

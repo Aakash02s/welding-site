@@ -12,8 +12,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Shree Laxmi Welding Works",
-  description: "Welding,iron works Fabrication, Shed, Grill works with 20+ years experience",
+  title: "Shree Laxmi Welding Works | Best Welding & Steel Fabrication Near You",
+  description:
+    "Shree Laxmi Welding Works – trusted welding shop in Vasai-Virar. Gate fabrication, iron works, steel fabrication, railing & more. Call for a quote today.",
 };
 
 export default function RootLayout({ children }) {
