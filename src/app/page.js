@@ -25,7 +25,6 @@
    ================================================================================ */
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import {
   Phone,
   MessageCircle,
@@ -36,12 +35,11 @@ import {
   ExternalLink,
   Calculator,
   Send,
-  MapPin,
   BadgeCheck,
   ArrowLeftRight,
+  ClipboardList,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import {
   H1,
   H2_SECTIONS,
@@ -104,6 +102,13 @@ const SERVICES = [
   "Modification Work",
   "Safety Door",
   "Custom Frame",
+];
+
+const WHY_CHOOSE_US = [
+  { title: "20+ Years Experience", desc: "Trusted local welding and fabrication." },
+  { title: "Fair Pricing", desc: "Clear quotes, no hidden charges." },
+  { title: "On-Time Delivery", desc: "We stick to agreed timelines." },
+  { title: "Quality Work", desc: "Strong joints and durable finish." },
 ];
 
 const TESTIMONIALS = [
@@ -189,13 +194,11 @@ export default function AllInOneFinal() {
   };
 
   return (
-    <div className="relative min-h-screen text-zinc-100 overflow-hidden">
+    <div className="welding-page relative min-h-screen overflow-hidden">
 
-      {/* ===== Artistic multi-layer background ===== */}
-      <div className="absolute inset-0 bg-black" />
-      <div className="absolute inset-0 bg-gradient-to-br from-orange-900/20 via-transparent to-amber-700/10" />
-      <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-orange-600/10 rounded-full blur-3xl" />
-      <div className="absolute top-1/2 -right-40 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-3xl" />
+      {/* Lightweight background — Core Web Vitals friendly */}
+      <div className="absolute inset-0 bg-[var(--welding-bg)]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-orange-950/15 via-transparent to-transparent pointer-events-none" />
 
       <script
         type="application/ld+json"
@@ -204,14 +207,14 @@ export default function AllInOneFinal() {
 
       <div className="relative z-10">
         {/* HEADER */}
-        <header className="max-w-6xl mx-auto px-4 py-6 flex justify-between items-center">
-          <div className="font-bold text-2xl text-orange-400 tracking-wide">
+        <header className="max-w-6xl mx-auto px-4 py-5 flex justify-between items-center border-b border-[var(--welding-border)]">
+          <div className="font-bold text-xl sm:text-2xl text-[var(--welding-primary-muted)] tracking-wide">
             {CONFIG.business}
           </div>
           <Button
             size="sm"
             variant="outline"
-            className="border-orange-500/40 text-orange-300"
+            className="border-[var(--welding-border)] text-[var(--welding-text-secondary)] hover:bg-[var(--welding-surface)]"
             onClick={() => setLang(lang === "en" ? "hi" : "en")}
           >
             <Languages size={16} /> {lang.toUpperCase()}
@@ -219,54 +222,49 @@ export default function AllInOneFinal() {
         </header>
 
         {/* HERO */}
-        <section className="text-center px-4 pb-12">
-          <h1 className="text-3xl md:text-5xl font-extrabold bg-gradient-to-r from-orange-400 to-amber-500 bg-clip-text text-transparent max-w-4xl mx-auto leading-tight">
-            {H1}
-          </h1>
-          <p className="text-zinc-300 mt-4 text-lg">{text.tagline}</p>
-          <p className="text-zinc-300 mt-4 text-base max-w-2xl mx-auto text-left sm:text-center leading-relaxed">
-            {HOMEPAGE_PARAGRAPH}
-          </p>
+        <section className="welding-hero">
+          <h1>{H1}</h1>
+          <p className="hero-tagline">{text.tagline}</p>
+          <p className="hero-intro">{HOMEPAGE_PARAGRAPH}</p>
 
-          <div className="inline-flex gap-2 mt-5 bg-orange-500/10 border border-orange-500/30 px-4 py-2 rounded-full text-orange-300 text-sm">
+          <div className="hero-badge">
             <BadgeCheck size={16} /> 20+ Years Experience
           </div>
 
-          {/* platform links */}
           <div className="flex flex-wrap justify-center gap-3 mt-6">
-            <a href={CONFIG.youtubeChannel} target="_blank" className="chip">
+            <a href={CONFIG.youtubeChannel} target="_blank" rel="noopener noreferrer" className="welding-chip">
               <Youtube size={18} /> YouTube
             </a>
-            <a href={CONFIG.justdial} target="_blank" className="chip">
+            <a href={CONFIG.justdial} target="_blank" rel="noopener noreferrer" className="welding-chip">
               <ExternalLink size={18} /> Justdial
             </a>
-            <a href={CONFIG.review} target="_blank" className="chip">
+            <a href={CONFIG.review} target="_blank" rel="noopener noreferrer" className="welding-chip">
               <Star size={18} /> Review
             </a>
           </div>
 
-          <div className="flex justify-center gap-4 mt-8 flex-wrap">
-            <Button asChild className="bg-orange-500 hover:bg-orange-600 text-black rounded-full">
-              <a href={`tel:+${CONFIG.phone}`}>
-                <Phone size={18} /> Call
-              </a>
-            </Button>
-            <Button asChild variant="secondary" className="rounded-full">
-              <a href={`https://wa.me/${CONFIG.whatsapp}`}>
-                <MessageCircle size={18} /> WhatsApp
-              </a>
-            </Button>
+          <div className="hero-ctas">
+            <a href={`tel:+${CONFIG.phone}`} className="welding-cta-call">
+              <Phone size={18} /> Call Now
+            </a>
+            <a href={`https://wa.me/${CONFIG.whatsapp}`} className="welding-cta-whatsapp">
+              <MessageCircle size={18} /> WhatsApp
+            </a>
+            <a href="#quote" className="welding-cta-quote">
+              <ClipboardList size={18} /> Get Quote
+            </a>
           </div>
         </section>
 
         {/* SLIDER */}
-        <section className="max-w-6xl mx-auto px-4 mb-16">
-          <div className="relative h-72 rounded-3xl overflow-hidden border border-orange-500/20 shadow-2xl">
+        <section className="welding-section">
+          <div className="relative h-64 sm:h-72 rounded-2xl overflow-hidden border border-[var(--welding-border)] shadow-[var(--welding-shadow-md)]">
             {SLIDER.map((img, i) => (
               <img
                 key={i}
                 src={img}
-                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+                alt=""
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
                   i === slide ? "opacity-100" : "opacity-0"
                 }`}
               />
@@ -274,202 +272,202 @@ export default function AllInOneFinal() {
           </div>
         </section>
 
-        {/* SEO SERVICES – Welding, Iron, Gate, Railing, Steel */}
-        <section className="max-w-6xl mx-auto px-4 mb-16">
-          <h2 className="section-title">{H2_SECTIONS.services}</h2>
-          <div className="space-y-6">
+        {/* SERVICES – Welding, Iron, Gate, Railing, Steel */}
+        <section className="welding-section" aria-labelledby="services-heading">
+          <h2 id="services-heading" className="welding-section-title">{H2_SECTIONS.services}</h2>
+          <div className="welding-services-grid">
             {SERVICES_LIST.map((s, i) => (
-              <Card key={i} className="card-pro">
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold text-orange-300 mb-2">
-                    {s.title}
-                  </h3>
-                  <p className="text-zinc-300 text-sm leading-relaxed">
-                    {s.description}
-                  </p>
-                </CardContent>
-              </Card>
+              <div key={i} className="welding-card">
+                <h3 className="welding-card-title">{s.title}</h3>
+                <p className="welding-card-text">{s.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* WHY CHOOSE US */}
+        <section className="welding-why" aria-labelledby="why-heading">
+          <h2 id="why-heading" className="welding-section-title">Why Choose Us</h2>
+          <div className="welding-why-inner">
+            {WHY_CHOOSE_US.map((item, i) => (
+              <div key={i} className="welding-why-item">
+                <strong>{item.title}</strong>
+                <span>{item.desc}</span>
+              </div>
             ))}
           </div>
         </section>
 
         {/* YOUTUBE VIDEO */}
-        <section className="max-w-5xl mx-auto px-4 mb-16">
-          <h2 className="section-title">{text.video}</h2>
-          <div className="aspect-video rounded-2xl overflow-hidden border border-orange-500/20">
+        <section className="welding-section">
+          <h2 className="welding-section-title">{text.video}</h2>
+          <div className="aspect-video rounded-xl overflow-hidden border border-[var(--welding-border)]">
             <iframe
               src={CONFIG.youtubeEmbed}
               className="w-full h-full"
+              title="Our work"
               allowFullScreen
             />
           </div>
         </section>
 
         {/* BEFORE AFTER */}
-        <section className="max-w-5xl mx-auto px-4 mb-16 text-center">
-          <h2 className="section-title flex items-center justify-center gap-2">
-            <ArrowLeftRight /> {text.beforeAfter}
+        <section className="welding-section text-center">
+          <h2 className="welding-section-title flex items-center justify-center gap-2">
+            <ArrowLeftRight size={20} /> {text.beforeAfter}
           </h2>
-          <div className="relative h-72 rounded-2xl overflow-hidden border border-orange-500/20">
+          <div className="relative h-64 sm:h-72 rounded-xl overflow-hidden border border-[var(--welding-border)]">
             <img
               src={after ? BEFORE_AFTER.after : BEFORE_AFTER.before}
+              alt=""
               className="w-full h-full object-cover"
             />
           </div>
-          <Button className="mt-4" onClick={() => setAfter(!after)}>
+          <button
+            type="button"
+            className="mt-4 welding-cta-quote"
+            onClick={() => setAfter(!after)}
+          >
             Toggle
-          </Button>
+          </button>
         </section>
 
-        {/* SERVICES */}
-        <section className="max-w-6xl mx-auto px-4 mb-16 grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {SERVICES.map((s, i) => (
-            <Card key={i} className="card-pro">
-              <CardContent className="p-8 text-center">
-                <Wrench className="mx-auto mb-3 text-orange-400" />
-                {s}
-              </CardContent>
-            </Card>
-          ))}
+        {/* SERVICES ICON GRID */}
+        <section className="welding-section">
+          <h2 className="welding-section-title">{text.services}</h2>
+          <div className="welding-services-grid">
+            {SERVICES.map((s, i) => (
+              <div key={i} className="welding-card text-center">
+                <Wrench className="mx-auto mb-2 text-[var(--welding-primary-muted)]" size={28} />
+                <span className="welding-card-title block">{s}</span>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* GALLERY */}
-        <section className="max-w-6xl mx-auto px-4 mb-16 grid grid-cols-2 md:grid-cols-4 gap-4">
-          {GALLERY.map((g, i) => (
-            <img
-              key={i}
-              src={g}
-              className="h-40 w-full object-cover rounded-xl border border-orange-500/20"
-            />
-          ))}
+        <section className="welding-section" aria-labelledby="gallery-heading">
+          <h2 id="gallery-heading" className="welding-section-title">{text.gallery}</h2>
+          <div className="welding-gallery">
+            {GALLERY.map((g, i) => (
+              <img key={i} src={g} alt="" />
+            ))}
+          </div>
         </section>
 
         {/* QUOTE */}
-        <section className="max-w-xl mx-auto px-4 mb-16">
-          <Card className="card-pro">
-            <CardContent className="p-6 space-y-3 text-center">
-              <Calculator className="mx-auto text-orange-400" />
-              <div>{text.estimate}</div>
-              <select className="input" onChange={(e) => setSvc(e.target.value)}>
-                {Object.keys(CONFIG.serviceRates).map((k) => (
-                  <option key={k}>{k}</option>
-                ))}
-              </select>
-              <input
-                className="input"
-                type="number"
-                placeholder="sq ft"
-                onChange={(e) => setSize(Number(e.target.value))}
-              />
-              <div className="text-xl font-bold text-orange-400">₹ {estimate}</div>
-            </CardContent>
-          </Card>
+        <section id="quote" className="welding-section max-w-xl mx-auto" aria-labelledby="quote-heading">
+          <h2 id="quote-heading" className="welding-section-title">{text.estimate}</h2>
+          <div className="welding-card space-y-3 text-center p-6">
+            <Calculator className="mx-auto text-[var(--welding-primary-muted)]" size={32} />
+            <select className="welding-input" onChange={(e) => setSvc(e.target.value)}>
+              {Object.keys(CONFIG.serviceRates).map((k) => (
+                <option key={k}>{k}</option>
+              ))}
+            </select>
+            <input
+              className="welding-input"
+              type="number"
+              placeholder="sq ft"
+              onChange={(e) => setSize(Number(e.target.value))}
+            />
+            <div className="text-xl font-bold text-[var(--welding-primary-muted)]">₹ {estimate}</div>
+          </div>
         </section>
 
         {/* LEAD FORM */}
-        <section className="max-w-xl mx-auto px-4 mb-16">
-          <Card className="card-pro">
-            <CardContent className="p-6 space-y-3">
-              <div className="font-bold text-center text-orange-300">
-                {text.enquiry}
-              </div>
-              <input
-                className="input"
-                placeholder="Name"
-                onChange={(e) => setLead({ ...lead, name: e.target.value })}
-              />
-              <input
-                className="input"
-                placeholder="Phone"
-                onChange={(e) => setLead({ ...lead, phone: e.target.value })}
-              />
-              <textarea
-                className="input"
-                placeholder="Work"
-                onChange={(e) => setLead({ ...lead, work: e.target.value })}
-              />
-              <Button onClick={sendLead} className="bg-orange-500 hover:bg-orange-600 text-black">
-                <Send size={16} /> Send
-              </Button>
-            </CardContent>
-          </Card>
+        <section className="welding-section max-w-xl mx-auto">
+          <div className="welding-card p-6 space-y-3">
+            <div className="font-semibold text-center text-[var(--welding-text)]">
+              {text.enquiry}
+            </div>
+            <input
+              className="welding-input"
+              placeholder="Name"
+              onChange={(e) => setLead({ ...lead, name: e.target.value })}
+            />
+            <input
+              className="welding-input"
+              placeholder="Phone"
+              onChange={(e) => setLead({ ...lead, phone: e.target.value })}
+            />
+            <textarea
+              className="welding-input min-h-[80px] resize-y"
+              placeholder="Work"
+              onChange={(e) => setLead({ ...lead, work: e.target.value })}
+            />
+            <button type="button" onClick={sendLead} className="welding-cta-call w-full justify-center">
+              <Send size={16} /> Send
+            </button>
+          </div>
         </section>
 
-        {/* TESTIMONIALS */}
-        <section className="max-w-4xl mx-auto px-4 mb-16 grid md:grid-cols-3 gap-6">
-          {TESTIMONIALS.map((x, i) => (
-            <Card key={i} className="card-pro">
-              <CardContent className="p-6 text-center">
-                <Star className="mx-auto text-yellow-400" />
-                <p className="text-sm text-zinc-300 mt-2">{x.text}</p>
-                <div className="mt-2 text-orange-300">— {x.name}</div>
-              </CardContent>
-            </Card>
-          ))}
+        {/* REVIEWS */}
+        <section className="welding-section" aria-labelledby="reviews-heading">
+          <h2 id="reviews-heading" className="welding-section-title">Reviews</h2>
+          <div className="welding-reviews">
+            {TESTIMONIALS.map((x, i) => (
+              <div key={i} className="welding-review-card">
+                <Star className="mx-auto text-amber-400" size={20} />
+                <p>{x.text}</p>
+                <div className="reviewer">— {x.name}</div>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* SERVICE AREAS – Local SEO */}
-        <section className="max-w-4xl mx-auto px-4 mb-16 text-center">
-          <h2 className="section-title">{H2_SECTIONS.serviceAreas}</h2>
-          <p className="text-zinc-300 mb-4 leading-relaxed">
+        <section className="welding-section max-w-4xl mx-auto text-center">
+          <h2 className="welding-section-title">{H2_SECTIONS.serviceAreas}</h2>
+          <p className="welding-card-text mb-4 max-w-2xl mx-auto">
             {SERVICE_AREAS_INTRO}
           </p>
-          <p className="text-zinc-300 font-medium">
+          <p className="text-[var(--welding-text-secondary)] font-medium">
             {SERVICE_AREAS.join(", ")}
           </p>
         </section>
 
         {/* FAQ */}
-        <section className="max-w-4xl mx-auto px-4 mb-16 space-y-4">
-          <h2 className="section-title">{text.faq}</h2>
+        <section className="welding-section max-w-4xl mx-auto space-y-4">
+          <h2 className="welding-section-title">{text.faq}</h2>
           {FAQ.map((f, i) => (
-            <Card key={i} className="card-pro">
-              <CardContent className="p-4">
-                <b className="text-orange-300">{f.q}</b>
-                <div className="text-zinc-300 text-sm mt-1">{f.a}</div>
-              </CardContent>
-            </Card>
+            <div key={i} className="welding-card p-4">
+              <b className="text-[var(--welding-primary-muted)]">{f.q}</b>
+              <div className="welding-card-text mt-1">{f.a}</div>
+            </div>
           ))}
         </section>
 
         {/* UPI */}
-        <section className="text-center mb-16">
-          <h3 className="section-title">{text.pay}</h3>
-          <img src={CONFIG.upiQR} className="mx-auto w-48 border border-orange-500/20 rounded-xl" />
+        <section className="welding-section text-center">
+          <h3 className="welding-section-title">{text.pay}</h3>
+          <img src={CONFIG.upiQR} alt="UPI" className="mx-auto w-48 rounded-xl border border-[var(--welding-border)]" />
         </section>
 
-        {/* MAP */}
-        <section className="max-w-6xl mx-auto px-4 mb-16">
+        {/* CONTACT / MAP */}
+        <section className="welding-contact-map" aria-labelledby="map-heading">
+          <h2 id="map-heading" className="welding-section-title">Find Us</h2>
           <iframe
             src={CONFIG.mapEmbed}
-            className="w-full h-80 rounded-2xl border border-orange-500/20"
+            title="Shree Laxmi Welding Works location"
           />
         </section>
 
         {/* FOOTER */}
-        <footer className="text-center text-zinc-400 pb-10">
+        <footer className="welding-footer">
           © {new Date().getFullYear()} {CONFIG.business}
         </footer>
 
-        {/* MOBILE CTA */}
-        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 md:hidden flex gap-3">
-          <a href={`tel:+${CONFIG.phone}`} className="cta">
-            📞
+        {/* MOBILE CTAs */}
+        <div className="welding-sticky-ctas">
+          <a href={`tel:+${CONFIG.phone}`} className="welding-cta-mobile-call" aria-label="Call">
+            <Phone size={22} />
           </a>
-          <a href={`https://wa.me/${CONFIG.whatsapp}`} className="cta2">
-            💬
+          <a href={`https://wa.me/${CONFIG.whatsapp}`} className="welding-cta-mobile-whatsapp" aria-label="WhatsApp">
+            <MessageCircle size={22} />
           </a>
         </div>
       </div>
-
-      <style jsx>{`
-        .input{width:100%;padding:10px;background:#0a0a0a;border:1px solid #333;border-radius:8px;color:#eee}
-        .cta{background:#16a34a;padding:14px 18px;border-radius:999px}
-        .cta2{background:#22c55e;padding:14px 18px;border-radius:999px}
-        .chip{display:flex;gap:6px;align-items:center;padding:8px 14px;border-radius:999px;border:1px solid #fb923c55;background:#fb923c22;color:#fdba74}
-        .card-pro{background:#0b0b0b;border:1px solid #fb923c22}
-        .section-title{font-size:1.5rem;font-weight:700;text-align:center;margin-bottom:1rem;color:#fdba74}
-      `}</style>
     </div>
   );
 }

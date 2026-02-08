@@ -3,6 +3,48 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* =============================================================================
+   SHREE LAXMI WELDING WORKS — DESIGN SYSTEM
+   Industrial, mobile-first, Core Web Vitals–friendly
+   ============================================================================= */
+
+/* ---------- COLOR PALETTE (hex) ----------
+   Background:     #0c0c0c (near black)
+   Surface:        #161616 (cards, panels)
+   Surface-elevated: #1e1e1e
+   Border:         #2a2a2a
+   Muted:          #71717a (zinc-500)
+   Text:           #fafafa (zinc-50)
+   Text-secondary: #a1a1aa (zinc-400)
+   Primary:        #ea580c (orange-600) — welding accent
+   Primary-hover:  #c2410c (orange-700)
+   Primary-muted:  #fb923c (orange-400) — headings
+   Call CTA:       #ea580c
+   WhatsApp CTA:   #22c55e (green-500)
+   Quote CTA:      #f59e0b (amber-500)
+   ============================================================================= */
+
+:root {
+  /* Industrial palette */
+  --welding-bg: #0c0c0c;
+  --welding-surface: #161616;
+  --welding-surface-elevated: #1e1e1e;
+  --welding-border: #2a2a2a;
+  --welding-text: #fafafa;
+  --welding-text-secondary: #a1a1aa;
+  --welding-primary: #ea580c;
+  --welding-primary-hover: #c2410c;
+  --welding-primary-muted: #fb923c;
+  --welding-cta-call: #ea580c;
+  --welding-cta-whatsapp: #22c55e;
+  --welding-cta-quote: #f59e0b;
+  --welding-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  --welding-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --welding-radius: 0.5rem;
+  --welding-radius-lg: 0.75rem;
+  --welding-transition: 180ms ease;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -115,11 +157,488 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* =============================================================================
+   BASE — Body, headings, typography (high readability & contrast)
+   ============================================================================= */
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
-    @apply bg-background text-foreground;
+    font-family: var(--font-body), var(--font-sans), system-ui, sans-serif;
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "kern" 1, "liga" 1;
   }
+
+  /* Welding theme page wrapper */
+  .welding-page {
+    background-color: var(--welding-bg);
+    color: var(--welding-text);
+    min-height: 100vh;
+  }
+
+  .welding-page h1 {
+    font-family: var(--font-heading), var(--font-sans), system-ui, sans-serif;
+    font-size: clamp(1.75rem, 5vw, 2.75rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--welding-primary-muted);
+  }
+
+  .welding-page h2 {
+    font-family: var(--font-heading), var(--font-sans), system-ui, sans-serif;
+    font-size: clamp(1.35rem, 3.5vw, 1.65rem);
+    font-weight: 600;
+    color: var(--welding-primary-muted);
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .welding-page h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--welding-primary-muted);
+  }
+
+  .welding-page p {
+    color: var(--welding-text-secondary);
+    line-height: 1.6;
+  }
+}
+
+/* =============================================================================
+   CTAs — Call Now, WhatsApp, Get Quote (clear hierarchy)
+   ============================================================================= */
+
+.welding-cta-call {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 9999px;
+  background-color: var(--welding-cta-call);
+  color: #fff;
+  border: none;
+  box-shadow: var(--welding-shadow);
+  transition: background-color var(--welding-transition), transform var(--welding-transition);
+}
+
+.welding-cta-call:hover {
+  background-color: var(--welding-primary-hover);
+  transform: translateY(-1px);
+}
+
+.welding-cta-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 9999px;
+  background-color: var(--welding-cta-whatsapp);
+  color: #fff;
+  border: none;
+  box-shadow: var(--welding-shadow);
+  transition: background-color var(--welding-transition), transform var(--welding-transition);
+}
+
+.welding-cta-whatsapp:hover {
+  background-color: #16a34a;
+  transform: translateY(-1px);
+}
+
+.welding-cta-quote {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 9999px;
+  background-color: var(--welding-cta-quote);
+  color: #0c0c0c;
+  border: none;
+  box-shadow: var(--welding-shadow);
+  transition: background-color var(--welding-transition), transform var(--welding-transition);
+}
+
+.welding-cta-quote:hover {
+  background-color: #eab308;
+  transform: translateY(-1px);
+}
+
+/* Mobile sticky CTAs */
+.welding-cta-mobile-call,
+.welding-cta-mobile-whatsapp {
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  box-shadow: var(--welding-shadow-md);
+  transition: transform var(--welding-transition);
+}
+
+.welding-cta-mobile-call {
+  background-color: var(--welding-cta-call);
+  color: #fff;
+}
+
+.welding-cta-mobile-whatsapp {
+  background-color: var(--welding-cta-whatsapp);
+  color: #fff;
+}
+
+.welding-cta-mobile-call:active,
+.welding-cta-mobile-whatsapp:active {
+  transform: scale(0.96);
+}
+
+/* =============================================================================
+   SECTION: Hero — Trust-building, clear H1 + CTAs
+   ============================================================================= */
+
+.welding-hero {
+  padding: 1.5rem 1rem 3rem;
+  text-align: center;
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.welding-hero .hero-tagline {
+  color: var(--welding-text-secondary);
+  font-size: 1.125rem;
+  margin-top: 1rem;
+}
+
+.welding-hero .hero-intro {
+  color: var(--welding-text-secondary);
+  font-size: 1rem;
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+@media (min-width: 640px) {
+  .welding-hero .hero-intro {
+    text-align: center;
+  }
+}
+
+.welding-hero .hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  background-color: rgba(234, 88, 12, 0.12);
+  border: 1px solid rgba(234, 88, 12, 0.35);
+  color: var(--welding-primary-muted);
+  font-size: 0.875rem;
+}
+
+.welding-hero .hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* =============================================================================
+   SECTION: Services — Cards, grid
+   ============================================================================= */
+
+.welding-section {
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem 4rem;
+}
+
+.welding-section-title {
+  font-family: var(--font-heading), var(--font-sans), system-ui, sans-serif;
+  font-size: clamp(1.35rem, 3.5vw, 1.65rem);
+  font-weight: 600;
+  color: var(--welding-primary-muted);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.welding-card {
+  background-color: var(--welding-surface);
+  border: 1px solid var(--welding-border);
+  border-radius: var(--welding-radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--welding-shadow);
+  transition: border-color var(--welding-transition), box-shadow var(--welding-transition);
+}
+
+.welding-card:hover {
+  border-color: rgba(234, 88, 12, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.welding-card-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--welding-primary-muted);
+  margin-bottom: 0.5rem;
+}
+
+.welding-card-text {
+  color: var(--welding-text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+/* Services grid — mobile-first */
+.welding-services-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .welding-services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .welding-services-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* =============================================================================
+   SECTION: Why Choose Us
+   ============================================================================= */
+
+.welding-why {
+  background-color: var(--welding-surface);
+  border-top: 1px solid var(--welding-border);
+  border-bottom: 1px solid var(--welding-border);
+  padding: 3rem 1rem;
+}
+
+.welding-why .welding-section-title {
+  margin-bottom: 1.5rem;
+}
+
+.welding-why-inner {
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .welding-why-inner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .welding-why-inner {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.welding-why-item {
+  text-align: center;
+  padding: 1rem;
+}
+
+.welding-why-item strong {
+  display: block;
+  color: var(--welding-text);
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.welding-why-item span {
+  color: var(--welding-text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* =============================================================================
+   SECTION: Gallery — Grid, light hover
+   ============================================================================= */
+
+.welding-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .welding-gallery {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+}
+
+.welding-gallery img {
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
+  border-radius: var(--welding-radius-lg);
+  border: 1px solid var(--welding-border);
+  transition: border-color var(--welding-transition);
+}
+
+@media (min-width: 768px) {
+  .welding-gallery img {
+    height: 11rem;
+  }
+}
+
+.welding-gallery img:hover {
+  border-color: rgba(234, 88, 12, 0.4);
+}
+
+/* =============================================================================
+   SECTION: Reviews (Testimonials)
+   ============================================================================= */
+
+.welding-reviews {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .welding-reviews {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+.welding-review-card {
+  background-color: var(--welding-surface);
+  border: 1px solid var(--welding-border);
+  border-radius: var(--welding-radius-lg);
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: var(--welding-shadow);
+}
+
+.welding-review-card p {
+  font-size: 0.875rem;
+  color: var(--welding-text-secondary);
+  margin-top: 0.5rem;
+}
+
+.welding-review-card .reviewer {
+  color: var(--welding-primary-muted);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+/* =============================================================================
+   SECTION: Contact / Map
+   ============================================================================= */
+
+.welding-contact-map {
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem 4rem;
+}
+
+.welding-contact-map iframe {
+  width: 100%;
+  height: 18rem;
+  border-radius: var(--welding-radius-lg);
+  border: 1px solid var(--welding-border);
+}
+
+@media (min-width: 768px) {
+  .welding-contact-map iframe {
+    height: 20rem;
+  }
+}
+
+/* =============================================================================
+   UTILITIES — Inputs, chips, sticky bar
+   ============================================================================= */
+
+.welding-input {
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  background-color: var(--welding-surface-elevated);
+  border: 1px solid var(--welding-border);
+  border-radius: var(--welding-radius);
+  color: var(--welding-text);
+  font-size: 1rem;
+  transition: border-color var(--welding-transition);
+}
+
+.welding-input:focus {
+  outline: none;
+  border-color: var(--welding-primary);
+}
+
+.welding-input::placeholder {
+  color: var(--welding-text-secondary);
+  opacity: 0.8;
+}
+
+.welding-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(234, 88, 12, 0.35);
+  background-color: rgba(234, 88, 12, 0.12);
+  color: var(--welding-primary-muted);
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: background-color var(--welding-transition), border-color var(--welding-transition);
+}
+
+.welding-chip:hover {
+  background-color: rgba(234, 88, 12, 0.2);
+  border-color: rgba(234, 88, 12, 0.5);
+}
+
+.welding-sticky-ctas {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.75rem;
+  z-index: 50;
+}
+
+@media (min-width: 768px) {
+  .welding-sticky-ctas {
+    display: none;
+  }
+}
+
+.welding-footer {
+  text-align: center;
+  color: var(--welding-text-secondary);
+  font-size: 0.875rem;
+  padding-bottom: 2.5rem;
 }
