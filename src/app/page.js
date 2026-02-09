@@ -71,7 +71,7 @@ const CONFIG = {
   },
 
   mapEmbed:
-    "https://www.google.com/maps?q=Shree%20Laxmi%20Welding%20Works&output=embed",
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.1414528321284!2d72.81950807499996!3d19.449467181833562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7a99ddf34d83b%3A0x560399841270204b!2sShree%20Laxmi%20Welding%20Works!5e0!3m2!1sen!2sin!4v1770613748492!5m2!1sen!2sin",
   upiQR: "/images/upi-qr.jpeg",
 };
 
@@ -438,10 +438,12 @@ export default function AllInOneFinal() {
           ))}
         </section>
 
-        {/* UPI */}
+        {/* Payment */}
         <section className="welding-section text-center">
           <h3 className="welding-section-title">{text.pay}</h3>
-          <img src={CONFIG.upiQR} alt="UPI" className="mx-auto w-48 rounded-xl border border-[var(--welding-border)]" />
+          <p className="welding-card-text max-w-xl mx-auto">
+            We accept all types of UPI payments, cheque, and bank transfer.
+          </p>
         </section>
 
         {/* CONTACT / MAP */}
