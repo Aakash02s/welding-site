@@ -135,6 +135,7 @@ const FAQ = [
 /* ================= COMPONENT ================= */
 export default function AllInOneFinal() {
   const [lang, setLang] = useState("en");
+  const [navOpen, setNavOpen] = useState(false);
   const [slide, setSlide] = useState(0);
   const [lead, setLead] = useState({ name: "", phone: "", work: "" });
   const [svc, setSvc] = useState("Gate");
@@ -179,6 +180,31 @@ export default function AllInOneFinal() {
     },
   }[lang];
 
+  const NAV = [
+    { label: "Services", href: "#services-heading", key: "services" },
+    { label: "Industries", href: "#industries", key: "industries" },
+    { label: "Projects", href: "#gallery-heading", key: "projects" },
+    { label: "Certifications", href: "#certifications", key: "certifications" },
+    { label: "Service Areas", href: "#service-areas", key: "areas" },
+    { label: "About", href: "#why-heading", key: "about" },
+    { label: "Contact / RFQ", href: "#quote", key: "rfq" },
+  ];
+
+  const SERVICES_MEGA = [
+    {
+      title: "Column 1",
+      items: ["TIG Welding", "MIG Welding", "Stainless Steel"],
+    },
+    {
+      title: "Column 2",
+      items: ["Structural Fabrication", "Aluminum Welding", "Rolling Shutters"],
+    },
+    {
+      title: "Column 3",
+      items: ["Mobile Welding", "Emergency Services", "Industrial Repairs"],
+    },
+  ];
+
   const sendLead = () => {
     if (!lead.name || !lead.phone) return alert("Enter name & phone");
     const msg = `Enquiry:%0AName:${lead.name}%0APhone:${lead.phone}%0AWork:${lead.work}`;
@@ -207,19 +233,144 @@ export default function AllInOneFinal() {
 
       <div className="relative z-10">
         {/* HEADER */}
-        <header className="max-w-6xl mx-auto px-4 py-5 flex justify-between items-center border-b border-[var(--welding-border)]">
-          <div className="font-bold text-xl sm:text-2xl text-[var(--welding-primary-muted)] tracking-wide">
-            {CONFIG.business}
+        <header className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between border-b border-[var(--welding-border)]">
+          <div className="flex items-center gap-3">
+            <div className="font-extrabold text-lg sm:text-xl tracking-wide text-[var(--welding-text)]">
+              {CONFIG.business}
+            </div>
+            <span className="hidden sm:inline-flex text-xs px-2 py-1 rounded-full border border-[var(--welding-border)] text-[var(--welding-text-secondary)]">
+              Regional Welding & Fabrication
+            </span>
           </div>
-          <Button
-            size="sm"
-            variant="outline"
-            className="border-[var(--welding-border)] text-[var(--welding-text-secondary)] hover:bg-[var(--welding-surface)]"
-            onClick={() => setLang(lang === "en" ? "hi" : "en")}
-          >
-            <Languages size={16} /> {lang.toUpperCase()}
-          </Button>
+
+          {/* Desktop nav */}
+          <nav className="hidden lg:flex items-center gap-6 text-sm text-[var(--welding-text-secondary)]">
+            {NAV.map((item) => {
+              if (item.key !== "services") {
+                return (
+                  <a
+                    key={item.key}
+                    href={item.href}
+                    className="hover:text-[var(--welding-text)] transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                );
+              }
+
+              return (
+                <div key={item.key} className="relative group">
+                  <a
+                    href={item.href}
+                    className="hover:text-[var(--welding-text)] transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                  <div className="absolute left-1/2 -translate-x-1/2 top-full pt-4 hidden group-hover:block">
+                    <div className="w-[760px] max-w-[85vw] rounded-2xl border border-[var(--welding-border)] bg-[var(--welding-surface)] shadow-[var(--welding-shadow-md)] p-6">
+                      <div className="grid grid-cols-3 gap-6">
+                        {SERVICES_MEGA.map((col, idx) => (
+                          <div key={idx}>
+                            <div className="text-xs font-semibold text-[var(--welding-text-secondary)] mb-3">
+                              {idx === 0 ? "Welding" : idx === 1 ? "Fabrication" : "On-Site"}
+                            </div>
+                            <ul className="space-y-2">
+                              {col.items.map((name) => (
+                                <li key={name}>
+                                  <a
+                                    href="#services-heading"
+                                    className="block text-[var(--welding-text)]/90 hover:text-[var(--welding-primary)] transition-colors"
+                                  >
+                                    {name}
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="mt-5 flex items-center justify-between border-t border-[var(--welding-border)] pt-4">
+                        <div className="text-xs text-[var(--welding-text-secondary)]">
+                          Contractors / builders: request an RFQ for faster pricing.
+                        </div>
+                        <a href="#quote" className="welding-cta-quote">
+                          <ClipboardList size={16} /> Request Quote
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </nav>
+
+          {/* Right actions */}
+          <div className="flex items-center gap-2">
+            <a href="#quote" className="hidden sm:inline-flex welding-cta-quote">
+              <ClipboardList size={18} /> Request Quote
+            </a>
+            <Button
+              size="sm"
+              variant="outline"
+              className="border-[var(--welding-border)] text-[var(--welding-text-secondary)] hover:bg-[var(--welding-surface)]"
+              onClick={() => setLang(lang === "en" ? "hi" : "en")}
+            >
+              <Languages size={16} /> {lang.toUpperCase()}
+            </Button>
+
+            {/* Mobile menu button */}
+            <button
+              type="button"
+              className="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-[var(--welding-border)] text-[var(--welding-text)] hover:bg-[var(--welding-surface)] transition-colors"
+              aria-label="Menu"
+              aria-expanded={navOpen}
+              onClick={() => setNavOpen((v) => !v)}
+            >
+              <span className="sr-only">Toggle menu</span>
+              <div className="w-5 h-5 relative">
+                <span className={`absolute left-0 top-1 w-5 h-[2px] bg-current transition-all ${navOpen ? "rotate-45 top-2.5" : ""}`} />
+                <span className={`absolute left-0 top-2.5 w-5 h-[2px] bg-current transition-all ${navOpen ? "opacity-0" : ""}`} />
+                <span className={`absolute left-0 top-4 w-5 h-[2px] bg-current transition-all ${navOpen ? "-rotate-45 top-2.5" : ""}`} />
+              </div>
+            </button>
+          </div>
         </header>
+
+        {/* Mobile navigation overlay */}
+        {navOpen ? (
+          <div className="lg:hidden fixed inset-0 z-50">
+            <div
+              className="absolute inset-0 bg-black/60"
+              style={{ backdropFilter: "blur(12px)" }}
+              onClick={() => setNavOpen(false)}
+            />
+            <div className="absolute top-0 left-0 right-0 border-b border-[var(--welding-border)] bg-[var(--welding-bg)]">
+              <div className="max-w-6xl mx-auto px-4 py-4">
+                <div className="space-y-1">
+                  {NAV.map((item) => (
+                    <a
+                      key={item.key}
+                      href={item.href}
+                      onClick={() => setNavOpen(false)}
+                      className="block py-3 text-base text-[var(--welding-text)] border-b border-[var(--welding-border)]/60"
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                </div>
+                <div className="pt-4">
+                  <a
+                    href="#quote"
+                    onClick={() => setNavOpen(false)}
+                    className="welding-cta-call w-full justify-center"
+                  >
+                    <ClipboardList size={18} /> Request Quote
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : null}
 
         {/* HERO */}
         <section className="welding-hero">
